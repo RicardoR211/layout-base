@@ -62,7 +62,7 @@ export default function BarraLateral() {
   }, [filtro, busca]);
 
   return (
-    <aside className="flex min-h-screen w-[264px] shrink-0 flex-col border-r border-gray-200 bg-gray-100 px-3 py-4">
+    <aside className="flex min-h-screen w-[330px] shrink-0 flex-col border-r border-gray-200 bg-gray-100 px-3 py-4">
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-1.5 pb-4">
         <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900 text-white">
@@ -75,7 +75,7 @@ export default function BarraLateral() {
       <nav className="flex flex-col gap-1">
         <a
           href="#"
-          className="flex items-center gap-2.5 rounded-lg bg-gray-200/80 px-2.5 py-2 text-sm font-medium text-gray-900"
+          className="flex items-center gap-2.5 rounded-lg bg-gray-200/80 px-2.5 py-2 text font-medium text-gray-900"
         >
           <MessageSquare className="h-4 w-4" />
           <span className="flex-1">Conversas</span>
@@ -83,7 +83,7 @@ export default function BarraLateral() {
         </a>
         <a
           href="#"
-          className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-gray-600 transition-colors hover:bg-gray-200/60"
+          className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text text-gray-600 transition-colors hover:bg-gray-200/60"
         >
           <BarChart3 className="h-4 w-4" />
           <span>Análises</span>
@@ -94,7 +94,7 @@ export default function BarraLateral() {
 
       {/* Cabeçalho da lista */}
       <div className="flex items-center justify-between px-1.5 pb-3">
-        <h2 className="text-sm font-semibold text-gray-900">Suas conversas</h2>
+        <h2 className="text-[20px] font-semibold text-gray-900">Suas conversas</h2>
         <button
           type="button"
           aria-label="Nova conversa"
@@ -112,7 +112,7 @@ export default function BarraLateral() {
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
           placeholder="Buscar conversa"
-          className="h-9 w-full rounded-lg border border-gray-200 bg-white pl-9 pr-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 focus:border-gray-400"
+          className="h-9 w-full rounded-lg border border-gray-200 bg-white pl-9 pr-3 text-[1.2rem] text-gray-900 outline-none placeholder:text-gray-400 focus:border-gray-400"
         />
       </div>
 
@@ -126,7 +126,7 @@ export default function BarraLateral() {
               type="button"
               onClick={() => setFiltro(f.id)}
               className={
-                "rounded-md border px-2.5 py-1 text-xs font-medium transition-colors " +
+                "rounded-md border px-2.5 py-1 text font-medium transition-colors " +
                 (on
                   ? "border-gray-900 bg-gray-900 text-white"
                   : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50")
@@ -154,7 +154,7 @@ export default function BarraLateral() {
               >
                 <span
                   className={
-                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-xs font-semibold " +
+                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[14px] font-semibold " +
                     (on ? "bg-gray-900 text-white" : "bg-gray-200 text-gray-600")
                   }
                 >
@@ -162,10 +162,10 @@ export default function BarraLateral() {
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="flex items-baseline justify-between gap-2">
-                    <span className="truncate text-sm font-medium text-gray-900">{c.nome}</span>
+                    <span className="truncate text-[18px] font-medium text-gray-900">{c.nome}</span>
                     <span className="shrink-0 text-[11px] text-gray-400">{c.hora}</span>
                   </span>
-                  <span className="block truncate text-xs text-gray-500">{c.mensagem}</span>
+                  <span className="block truncate text text-gray-500">{c.mensagem}</span>
                 </span>
               </button>
             </li>
