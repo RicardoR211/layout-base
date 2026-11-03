@@ -2,7 +2,7 @@ import ChatBalao from "../componentes/balao";
 
 export default function Conversa() {
     return (
-        <main>
+        <main className="w-full">
             <ChatBalao />
         </main>
     );

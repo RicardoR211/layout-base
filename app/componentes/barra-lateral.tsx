@@ -62,7 +62,7 @@ export default function BarraLateral() {
   }, [filtro, busca]);
 
   return (
-    <aside className="flex min-h-screen w-[330px] shrink-0 flex-col border-r border-gray-200 bg-gray-100 px-3 py-4">
+    <aside className="flex min-h-screen w-[330px] shrink-0 flex-col border-r border-gray-200 bg-gray-100 px-3 py-4 hidden md:flex" >
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-1.5 pb-4">
         <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900 text-white">
