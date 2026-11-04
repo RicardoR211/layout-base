@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { iniciais } from "@/lib/iniciais";
 import {
   BarChart3,
   Home,
@@ -36,16 +37,6 @@ const FILTROS = [
 ] as const;
 
 type Filtro = "todas" | "importada" | "digitada";
-
-function iniciais(nome: string) {
-  return nome
-    .split(" ")
-    .filter(Boolean) //Para retirar espaço em branco
-    .slice(0, 2)
-    .map((p) => p[0])
-    .join("")
-    .toUpperCase();
-}
 
 export default function BarraLateral() {
   const [filtro, setFiltro] = useState<Filtro>("todas");

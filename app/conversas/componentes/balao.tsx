@@ -1,15 +1,4 @@
-
-
-function iniciais(nome: string) {
-  return nome
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((p) => p[0])
-    .join("")
-    .toUpperCase();
-}
-
+import { iniciais } from "@/lib/iniciais";
 
 const C = {id: "1", 
     nome: "Marina Costa", 
