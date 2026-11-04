@@ -11,7 +11,7 @@ const C = {id: "1",
 export default function ChatBalao() {
     return(
         <div className={
-            "w-full min-w-0 max-w-[620px] px-2 py-5 " +
+            "min-w-0 max-w-[620px] px-2 py-5 " +
             (C.lado === "esquerdo" ? "mr-auto ml-5" : "ml-auto mr-5")
         }>
 
