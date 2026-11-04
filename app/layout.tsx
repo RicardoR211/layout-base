@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { Home } from "lucide-react";
 import "./globals.css";
 import BarraLateral from "./componentes/barra-lateral";
@@ -17,7 +18,16 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="flex min-h-screen flex-col bg-gray-50 md:flex-row">
-        <BarraLateral />
+        <Suspense
+          fallback={
+            <aside
+              aria-hidden="true"
+              className="hidden min-h-screen w-[264px] shrink-0 border-r border-gray-200 bg-gray-100 md:block"
+            />
+          }
+        >
+          <BarraLateral />
+        </Suspense>
 
         <div className="flex min-h-0 min-w-0 flex-1 flex-col">
           <header className="flex min-h-14 shrink-0 flex-wrap items-center justify-between gap-2 border-b border-gray-200 bg-white px-3 py-2 md:hidden">

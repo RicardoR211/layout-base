@@ -22,33 +22,35 @@ const C = {id: "1",
 export default function ChatBalao() {
     return(
         <div className={
-            "w-full max-w-[620px] px-2 sm:px-0  py-5 " +
-            (C.lado === "esquerdo" ? "mr-auto sm:ml-10" : "ml-auto sm:mr-10")
+            "w-full min-w-0 max-w-[620px] px-2 py-5 " +
+            (C.lado === "esquerdo" ? "mr-auto ml-5" : "ml-auto mr-5")
         }>
 
 
             {/* Cabeçalho da mensagem */}
-            <div className="flex items-center gap-2">
+            <div className={"flex items-center gap-2 " + 
+            (C.lado === "esquerdo" ? "" : "justify-end mr-2")}>
                 <span
                   className={
                     "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[14px] font-semibold " +
-                    (C.lado === "esquerdo" ? "bg-gray-900 text-white" : "bg-white text-gray-900")
+                    (C.lado === "esquerdo" ? "bg-gray-900 text-white" : "bg-white text-gray-900 border-[2px] border-gray-300")
                     }
                 >
                   {iniciais(C.nome)}
                 </span>
                 <p className="text-[16px] font-[600] ">{C.nome.split(" ")[0]}</p>
-                <p className="text-[14px] text-gray-600 translate-y-0.5">{C.hora}</p>
+                <p className="text-[14px] text-gray-600 ">{C.hora}</p>
             </div>
 
 
             {/*Balão da mensagem*/}
-            <div className="py-4 min-w-0">
-                <p className="w-fit max-w-full break-words px-5 py-5 bg-white border border-gray-300 rounded-2xl shadow-sm inline-block">
+            <div className="min-w-0 py-4">
+                <p className={"inline-block w-fit max-w-full break-words rounded-2xl border-[2px] border-gray-300 px-5 py-5 shadow-sm " + 
+                    (C.lado === "esquerdo" ? "bg-white" : "bg-gray-200")
+                }>
                     {C.lorem}
                 </p>
             </div>
-
 
         </div>
 

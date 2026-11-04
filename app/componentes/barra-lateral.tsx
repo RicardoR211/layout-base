@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   BarChart3,
   Home,
@@ -48,7 +50,10 @@ function iniciais(nome: string) {
 export default function BarraLateral() {
   const [filtro, setFiltro] = useState<Filtro>("todas");
   const [busca, setBusca] = useState("");
-  const [ativa, setAtiva] = useState<string>("2");
+  const pathname = usePathname();
+  const idAtivo = pathname.split("/").pop();
+  const emConversa = pathname.startsWith("/conversas/");
+  const emAnalises = pathname.startsWith("/analises");
 
   const lista = useMemo(() => {
     const termo = busca.trim().toLowerCase();
@@ -62,30 +67,42 @@ export default function BarraLateral() {
   return (
     <aside className="hidden min-h-screen w-[264px] shrink-0 flex-col border-r border-gray-200 bg-gray-100 px-3 py-4 md:flex">
       {/* Logo */}
-      <div className="flex items-center gap-2.5 px-1.5 pb-4">
+      <Link href="/" className="flex items-center gap-2.5 px-1.5 pb-4">
         <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900 text-white">
           <Home className="h-4 w-4" />
         </span>
         <span className="text-[17px] font-semibold text-gray-900">Início</span>
-      </div>
+      </Link>
 
       {/* Navegação */}
       <nav className="flex flex-col gap-1">
-        <a
-          href="#"
-          className="flex items-center gap-2.5 rounded-lg bg-gray-200/80 px-2.5 py-2 text-sm font-medium text-gray-900"
+        <Link
+          href="/conversas/1"
+          aria-current={emConversa ? "page" : undefined}
+          className={
+            "flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors " +
+            (emConversa
+              ? "bg-gray-200/80 font-medium text-gray-900"
+              : "text-gray-600 hover:bg-gray-200/60")
+          }
         >
           <MessageSquare className="h-4 w-4" />
           <span className="flex-1">Conversas</span>
           <span className="text-xs font-normal text-gray-500">{CONVERSAS.length}</span>
-        </a>
-        <a
-          href="#"
-          className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-gray-600 transition-colors hover:bg-gray-200/60"
+        </Link>
+        <Link
+          href="/analises"
+          aria-current={emAnalises ? "page" : undefined}
+          className={
+            "flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors " +
+            (emAnalises
+              ? "bg-gray-200/80 font-medium text-gray-900"
+              : "text-gray-600 hover:bg-gray-200/60")
+          }
         >
           <BarChart3 className="h-4 w-4" />
           <span>Análises</span>
-        </a>
+        </Link>
       </nav>
 
       <div className="my-4 border-t border-gray-200" />
@@ -139,12 +156,12 @@ export default function BarraLateral() {
       {/* Lista de conversas */}
       <ul className="-mx-1 flex-1 space-y-0.5 overflow-y-auto px-1">
         {lista.map((c) => {
-          const on = c.id === ativa;
+          const on = c.id === idAtivo;
           return (
             <li key={c.id}>
-              <button
-                type="button"
-                onClick={() => setAtiva(c.id)}
+              <Link
+                href={`/conversas/${c.id}`}
+                aria-current={on ? "page" : undefined}
                 className={
                   "flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left transition-colors " +
                   (on ? "bg-gray-200/80" : "hover:bg-gray-200/50")
@@ -165,7 +182,7 @@ export default function BarraLateral() {
                   </span>
                   <span className="block truncate text-xs text-gray-500">{c.mensagem}</span>
                 </span>
-              </button>
+              </Link>
             </li>
           );
         })}
