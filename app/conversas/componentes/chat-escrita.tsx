@@ -98,7 +98,7 @@ export default function ChatEscrita() {
             </p> */}
 
             {/* Área de escrita */}
-            <div className="flex items-center justify-between gap-4 rounded-b-xl border-t border-gray-200 px-5 py-3 ">
+            <div className="flex items-center justify-between gap-2 rounded-b-xl border-t border-gray-200 px-5 py-3 ">
 
                 {/* Lado esquerdo */}
                 <div className="flex flex-1 items-center gap-4">
@@ -138,7 +138,8 @@ export default function ChatEscrita() {
                     }}
                     className="flex shrink-0 items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-gray-800 active:scale-[0.98]"
                 >
-                    Adicionar como Marina
+                    
+                    <span className="hidden sm:inline">Adicionar como Marina</span>
 
                     <ArrowUp className="h-4 w-4 stroke-[2.5]" />
                 </button>
