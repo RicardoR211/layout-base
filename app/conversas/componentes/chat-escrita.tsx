@@ -81,24 +81,24 @@ export default function ChatEscrita() {
                     console.log("Clicado para alternar");
                 }}>
                     
-                    <ArrowLeftRight className="h-4 w-4" />
+                    <ArrowLeftRight className="hidden md:flex h-4 w-4" />
 
-                    <span>Alt + ↑ / ↓ para alternar</span>
+                    <span className="hidden md:flex">Alt + ↑ / ↓ para alternar</span>
 
                 </button>
 
             </div>
             
             { /* Legendis  */}
-            <p className="px-5 text-sm uppercase  text-gray-500">
+            {/* <p className="px-5 text-sm uppercase  text-gray-500">
                 Digite sua mensagem como{" "}
                 <span className="font-semibold text-gray-900">
                     Marina
                 </span>
-            </p>
+            </p> */}
 
             {/* Área de escrita */}
-            <div className="flex items-end justify-between gap-4 rounded-b-xl border-t border-gray-200 px-5 py-3 ">
+            <div className="flex items-center justify-between gap-4 rounded-b-xl border-t border-gray-200 px-5 py-3 ">
 
                 {/* Lado esquerdo */}
                 <div className="flex flex-1 items-center gap-4">
@@ -122,7 +122,7 @@ export default function ChatEscrita() {
                             setMensagem(e.target.value);
                             ajustarAltura(e);
                         }}
-                        placeholder="Digite sua mensagem..."
+                        placeholder="Digite sua mensagem ..."
                         rows={1}
                         className="min-h-[44px] max-h-[160px] flex-1 resize-none overflow-y-auto rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-[14px] text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-400 focus:bg-white focus:ring-2 focus:ring-gray-100"
                     />
@@ -134,7 +134,7 @@ export default function ChatEscrita() {
                 <button
                     type="button"
                     onClick={() => {
-                        console.log("Mensagem enviada como Marina");
+                        console.log("Mensagem enviada como...");
                     }}
                     className="flex shrink-0 items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-gray-800 active:scale-[0.98]"
                 >

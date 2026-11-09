@@ -9,7 +9,7 @@ export default function Conversa() {
         <main className="flex h-screen min-w-0 flex-1 flex-col bg-gray-50 text-gray-900">
 
             {/* Breadcrumb */}
-            <nav className="flex shrink-0 items-center gap-3 px-8 py-5 text-[14px] text-gray-500">
+            <nav className="hidden flex shrink-0 items-center gap-3 px-8 py-5 text-[14px] text-gray-500 display-block md:flex">
                 <span>Início</span>
                 <ChevronRight className="h-3.5 w-3.5" />
                 <span>Conversas</span>

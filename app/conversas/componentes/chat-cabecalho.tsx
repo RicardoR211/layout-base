@@ -2,6 +2,7 @@
 
 import { iniciais } from "@/lib/iniciais";
 import { BarChart3, ChevronRight, MoreHorizontal } from "lucide-react";
+import { useState } from "react";
 
 const C = {id: "1", 
     nome: "Marina Costa", 
@@ -13,6 +14,8 @@ const C = {id: "1",
 
  
 export default function ChatCabecalho() {
+    const [mostrarAcoes, setMostrarAcoes] = useState(false);
+
     return (
         <div className="flex w-full items-center justify-between gap-4 border-b border-gray-200 bg-white px-6 py-4">
  
@@ -33,32 +36,38 @@ export default function ChatCabecalho() {
             </div>
  
             {/* Ações */}
-            <div className="flex shrink-0 items-center gap-3">
+            <div className="relative flex shrink-0 items-center gap-3">
+                <div className={`${mostrarAcoes ? "flex" : "hidden"} absolute right-0 top-full z-20 mt-2 w-56 flex-col gap-2 rounded-xl border border-gray-200 bg-white p-2 shadow-lg lg:static lg:mt-0 lg:flex lg:w-auto lg:flex-row lg:items-center lg:gap-3 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none`}>
+                    <button
+                        type="button"
+                        onClick={() => console.log("Clicou em Estatísticas")}
+                        className="flex w-full items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-900 transition hover:bg-gray-50 lg:w-auto lg:px-4"
+                    >
+                        <BarChart3 className="h-4 w-4" />
+                        <span className="sm:hidden">Status</span>
+                        <span className="hidden sm:inline">Estatísticas</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => console.log("Clicou em Analisar conversa")}
+                        className="rounded-lg bg-gray-900 px-4 py-2 text-[14px] font-[500] text-white transition hover:bg-gray-800"
+                    >
+                        <span className="sm:hidden">Analisar</span>
+                        <span className="hidden sm:inline">Analisar Conversa</span>
+                    </button>
+                </div>
+
+                {/* Mostra ou oculta */}
                 <button
                     type="button"
-                    onClick={() => console.log("Clicou em Estatísticas")}
-                    className="flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-[14px] font-[500] text-gray-900 transition hover:bg-gray-50"
-                >
-                    <BarChart3 className="h-4 w-4" />
-                    Estatísticas
+                    onClick={() => setMostrarAcoes(!mostrarAcoes)}
+                    aria-label="Mostrar ações"
+                    aria-expanded={mostrarAcoes}
+                    className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 transition hover:bg-gray-100 lg:hidden"
+                    >
+                    <MoreHorizontal className="h-5 w-5" />
                 </button>
- 
-                <button
-                    type="button"
-                    onClick={() => console.log("Clicou em Analisar conversa")}
-                    className="rounded-lg bg-gray-900 px-4 py-2 text-[14px] font-[500] text-white transition hover:bg-gray-800"
-                >
-                    Analisar conversa
-                </button>
- 
-              <button
-                  type="button"
-                  onClick={() => console.log("Clicou em Mais opções")}
-                  aria-label="Mais opções"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 transition hover:bg-gray-100"
-              >
-                  <MoreHorizontal className="h-5 w-5" />
-              </button>
             </div>
  
         </div>
