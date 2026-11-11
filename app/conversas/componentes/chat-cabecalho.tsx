@@ -10,10 +10,15 @@ const C = {id: "1",
     lorem: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pellentesque risus eget felis tincidunt pulvinar. Proin nisl nisl, pretium id gravida id, porta eget quam. Proin mollis lectus a dolor luctus ullamcorper. Integer sed dui ultricies, pulvinar enim a, hendrerit sapien. Integer fringilla ipsum purus, id suscipit metus fermentum et. Sed tincidunt ligula sed tellus sagittis, id molestie ipsum vehicula. Ut metus sem, fermentum eu rhoncus vel, congue quis quam. Mauris lacinia porta nunc, " ,
     hora: "10:42", 
     origem: "importada",
-    lado: "esquerdo"};
+    lado: "esquerdo"
+};
 
  
-export default function ChatCabecalho() {
+interface ChatCabecalhoProps {
+    onOpenStatistics: () => void;
+}
+
+export default function ChatCabecalho({ onOpenStatistics }: ChatCabecalhoProps) {
     const [mostrarAcoes, setMostrarAcoes] = useState(false);
 
     return (
@@ -40,10 +45,13 @@ export default function ChatCabecalho() {
                 <div className={`${mostrarAcoes ? "flex" : "hidden"} absolute right-0 top-full z-20 mt-2 w-56 flex-col gap-2 rounded-xl border border-gray-200 bg-white p-2 shadow-lg lg:static lg:mt-0 lg:flex lg:w-auto lg:flex-row lg:items-center lg:gap-3 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none`}>
                     <button
                         type="button"
-                        onClick={() => console.log("Clicou em Estatísticas")}
+                        onClick={() => {
+                            onOpenStatistics();
+                            setMostrarAcoes(false);
+                        }}
                         className="flex w-full gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-900 transition hover:bg-gray-50 lg:w-auto lg:px-4"
                     >
-                        <BarChart3 className="absolute h-4 w-4" />
+                        <BarChart3 className="absolute h-4 w-4 lg:static" />
                         <span className="block w-full text-center sm:hidden">Status</span>
                         <span className="w-full text-center hidden sm:inline">Estatísticas</span>
                     </button>
