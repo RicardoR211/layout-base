@@ -12,13 +12,13 @@ export default function ChatBalao() {
     return(
         <div className={
             "min-w-0 max-w-[620px] px-2 py-5 " +
-            (C.lado === "esquerdo" ? "mr-auto ml-5" : "ml-auto mr-5")
+            (C.lado === "esquerdo" ? "mr-5" : "ml-5")
         }>
 
 
             {/* Cabeçalho da mensagem */}
             <div className={"flex items-center gap-2 " + 
-            (C.lado === "esquerdo" ? "" : "justify-end mr-2")}>
+            (C.lado === "esquerdo" ? "ml-1" : "justify-end mr-1")}>
                 <span
                   className={
                     "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[14px] font-semibold " +

@@ -43,9 +43,9 @@ export default function ChatCabecalho() {
                         onClick={() => console.log("Clicou em Estatísticas")}
                         className="flex w-full gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-900 transition hover:bg-gray-50 lg:w-auto lg:px-4"
                     >
-                        <BarChart3 className="h-4 w-4" />
-                        <span className="sm:hidden">Status</span>
-                        <span className="hidden sm:inline">Estatísticas</span>
+                        <BarChart3 className="absolute h-4 w-4" />
+                        <span className="block w-full text-center sm:hidden">Status</span>
+                        <span className="w-full text-center hidden sm:inline">Estatísticas</span>
                     </button>
 
                     <button
