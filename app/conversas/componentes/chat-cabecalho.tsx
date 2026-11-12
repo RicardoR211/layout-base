@@ -52,8 +52,8 @@ export default function ChatCabecalho({ onOpenStatistics }: ChatCabecalhoProps) 
                         className="flex w-full gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-900 transition hover:bg-gray-50 @2xl:w-auto @2xl:px-4"
                     >
                         <BarChart3 className="absolute h-4 w-4 @2xl:static" />
-                        <span className="block w-full text-center sm:hidden">Status</span>
-                        <span className="w-full text-center hidden sm:inline">Estatísticas</span>
+                        <span className="block w-full text-center @md:hidden">Status</span>
+                        <span className="w-full text-center hidden @md:inline">Estatísticas</span>
                     </button>
 
                     <button
@@ -61,8 +61,8 @@ export default function ChatCabecalho({ onOpenStatistics }: ChatCabecalhoProps) 
                         onClick={() => console.log("Clicou em Analisar conversa")}
                         className="rounded-lg bg-gray-900 px-4 py-2 text-[14px] font-[500] text-white transition hover:bg-gray-800"
                     >
-                        <span className="sm:hidden">Analisar</span>
-                        <span className="hidden sm:inline">Analisar Conversa</span>
+                        <span className="@md:hidden">Analisar</span>
+                        <span className="hidden @md:inline">Analisar Conversa</span>
                     </button>
                 </div>
 

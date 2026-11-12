@@ -4,7 +4,10 @@ interface ChatEstatisticaProps {
     onClose: () => void;
 }
 
+
+
 export default function ChatEstatistica({ onClose }: ChatEstatisticaProps) {
+
     return (
         <aside className="
                 flex w-full shrink-0 flex-col bg-white
@@ -27,9 +30,55 @@ export default function ChatEstatistica({ onClose }: ChatEstatisticaProps) {
 
             {/* Conteúdo */}
             <div className="min-h-0 flex-1 overflow-y-auto p-5">
-                <p className="text-sm text-gray-600">
-                    Conteúdo das estatísticas da conversa.
+                <p className="text-sm text-gray-500">
+                    Conversa com $nome · analisada às xx:xx
                 </p>
+            </div>
+
+            {/* bloco nivel de risco */}
+            <div>
+                bloco do nivel
+            </div>
+
+            {/* bloco com */}
+            <div>
+                {/* mensagem */}
+                <div>
+
+                </div>
+
+                {/* sinalizadas */}
+                <div>
+                    sinalizadas
+                </div>
+
+                {/* Falante A  */}
+                <div>
+                    Falante A
+                </div>
+
+                {/* Falante B */}
+                <div>
+                    Falante B
+                </div>
+            </div>
+
+            {/* Padrões detectados, cada um tem uma barra de progresso que é baseada no totalDele/totalEncontrado */}
+            <div>
+                padroes
+                padroes
+                padroes
+                padroes
+            </div>
+
+            {/* Linha do tempo */}
+            <div>
+                tempooooooooooo
+            </div>
+
+            {/* Botão de exportar relatório */}
+            <div>
+                butao
             </div>
 
         </aside>
