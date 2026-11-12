@@ -14,7 +14,7 @@ export default function Conversa() {
     return (
         <main className="flex h-[calc(100dvh-3.5rem)] min-w-0 flex-1 flex-row overflow-hidden bg-gray-50 text-gray-900 md:h-screen">
 
-            <section className="flex min-w-0 flex-1 flex-col overflow-hidden">
+            <section className="@container flex min-w-0 flex-1 flex-col overflow-hidden">
                 {/* Breadcrumb */}
                 <nav className="hidden flex shrink-0 items-center gap-3 border-b border-gray-300 px-8 py-5 text-[14px] text-gray-500 display-block md:flex">
                     <span>Início</span>

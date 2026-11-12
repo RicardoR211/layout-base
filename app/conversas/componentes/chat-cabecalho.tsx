@@ -42,16 +42,16 @@ export default function ChatCabecalho({ onOpenStatistics }: ChatCabecalhoProps) 
  
             {/* Ações */}
             <div className="relative flex shrink-0 items-center gap-3">
-                <div className={`${mostrarAcoes ? "flex" : "hidden"} absolute right-0 top-full z-20 mt-2 w-56 flex-col gap-2 rounded-xl border border-gray-200 bg-white p-2 shadow-lg lg:static lg:mt-0 lg:flex lg:w-auto lg:flex-row lg:items-center lg:gap-3 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none`}>
+                <div className={`${mostrarAcoes ? "flex" : "hidden"} absolute right-0 top-full z-20 mt-2 w-56 flex-col gap-2 rounded-xl border border-gray-200 bg-white p-2 shadow-lg @2xl:static @2xl:mt-0 @2xl:flex @2xl:w-auto @2xl:flex-row @2xl:items-center @2xl:gap-3 @2xl:rounded-none @2xl:border-0 @2xl:bg-transparent @2xl:p-0 @2xl:shadow-none`}>
                     <button
                         type="button"
                         onClick={() => {
                             onOpenStatistics();
                             setMostrarAcoes(false);
                         }}
-                        className="flex w-full gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-900 transition hover:bg-gray-50 lg:w-auto lg:px-4"
+                        className="flex w-full gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-900 transition hover:bg-gray-50 @2xl:w-auto @2xl:px-4"
                     >
-                        <BarChart3 className="absolute h-4 w-4 lg:static" />
+                        <BarChart3 className="absolute h-4 w-4 @2xl:static" />
                         <span className="block w-full text-center sm:hidden">Status</span>
                         <span className="w-full text-center hidden sm:inline">Estatísticas</span>
                     </button>
@@ -72,7 +72,7 @@ export default function ChatCabecalho({ onOpenStatistics }: ChatCabecalhoProps) 
                     onClick={() => setMostrarAcoes(!mostrarAcoes)}
                     aria-label="Mostrar ações"
                     aria-expanded={mostrarAcoes}
-                    className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 transition hover:bg-gray-100 lg:hidden"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 transition hover:bg-gray-100 @2xl:hidden"
                     >
                     <MoreHorizontal className="h-5 w-5" />
                 </button>
