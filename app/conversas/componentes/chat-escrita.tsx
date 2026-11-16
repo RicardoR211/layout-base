@@ -4,19 +4,23 @@ import { iniciais } from "@/lib/iniciais";
 import { useState } from "react";
 import { ArrowLeftRight, Paperclip, ArrowUp } from "lucide-react";
 
+
 const C = {id: "1", 
     nome: "Marina Costa", 
     mensagem: "Combinado! Me chama no outro app",
     lorem: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pellentesque risus eget felis tincidunt pulvinar. Proin nisl nisl, pretium id gravida id, porta eget quam. Proin mollis lectus a dolor luctus ullamcorper. Integer sed dui ultricies, pulvinar enim a, hendrerit sapien. Integer fringilla ipsum purus, id suscipit metus fermentum et. Sed tincidunt ligula sed tellus sagittis, id molestie ipsum vehicula. Ut metus sem, fermentum eu rhoncus vel, congue quis quam. Mauris lacinia porta nunc, " ,
     hora: "10:42", 
     origem: "importada",
-    lado: "esquerdo"};
+    lado: "esquerdo"
+};
 
 
+interface ChatEscritaProps {
+    onEnviarMensagem: (texto : string) => void;
+}
 
 
-
-export default function ChatEscrita() {
+export default function ChatEscrita( {onEnviarMensagem } : ChatEscritaProps ) {
     const [mensagem, setMensagem] = useState("");
 
     const ajustarAltura = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -134,6 +138,13 @@ export default function ChatEscrita() {
                 <button
                     type="button"
                     onClick={() => {
+                        const texto = mensagem.trim();
+
+                        if(!texto) return;
+
+                        onEnviarMensagem(texto);
+                        setMensagem("");
+
                         console.log("Mensagem enviada como...");
                     }}
                     className="flex shrink-0 items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-gray-800 active:scale-[0.98]"

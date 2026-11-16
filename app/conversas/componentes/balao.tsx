@@ -1,4 +1,5 @@
 import { iniciais } from "@/lib/iniciais";
+import { Mensagem } from "@/types/mensagem";
 
 const C = {id: "1", 
     nome: "Marina Costa", 
@@ -8,36 +9,44 @@ const C = {id: "1",
     origem: "importada",
     lado: "esquerdo"};
 
-export default function ChatBalao() {
+
+
+
+interface ChatBalaoProps {
+    mensagem: Mensagem;
+}
+
+
+export default function ChatBalao({ mensagem }: { mensagem: Mensagem }) {
     return(
         <div className={
             "min-w-0 max-w-[620px] px-2 py-5 " +
-            (C.lado === "esquerdo" ? "mr-5" : "ml-5")
+            (mensagem.lado === "esquerdo" ? "mr-5" : "ml-5")
         }>
 
 
             {/* Cabeçalho da mensagem */}
             <div className={"flex items-center gap-2 " + 
-            (C.lado === "esquerdo" ? "ml-1" : "justify-end mr-1")}>
+            (mensagem.lado === "esquerdo" ? "ml-1" : "justify-end mr-1")}>
                 <span
                   className={
                     "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[14px] font-semibold " +
-                    (C.lado === "esquerdo" ? "bg-gray-900 text-white" : "bg-white text-gray-900 border-[2px] border-gray-300")
+                    (mensagem.lado === "esquerdo" ? "bg-gray-900 text-white" : "bg-white text-gray-900 border-[2px] border-gray-300")
                     }
                 >
-                  {iniciais(C.nome)}
+                  {iniciais(mensagem.nome)}
                 </span>
-                <p className="text-[16px] font-[600] ">{C.nome.split(" ")[0]}</p>
-                <p className="text-[14px] text-gray-600 ">{C.hora}</p>
+                <p className="text-[16px] font-[600] ">{mensagem.nome.split(" ")[0]}</p>
+                <p className="text-[14px] text-gray-600 ">{mensagem.hora}</p>
             </div>
 
 
             {/*Balão da mensagem*/}
             <div className="min-w-0 py-4">
                 <p className={"inline-block w-fit max-w-full break-words rounded-2xl border-[2px] border-gray-300 px-5 py-5 shadow-sm " + 
-                    (C.lado === "esquerdo" ? "bg-white" : "bg-gray-200")
+                    (mensagem.lado === "esquerdo" ? "bg-white" : "bg-gray-200")
                 }>
-                    {C.lorem}
+                    {mensagem.texto}
                 </p>
             </div>
 

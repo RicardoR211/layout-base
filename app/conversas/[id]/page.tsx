@@ -6,10 +6,29 @@ import ChatCabecalho from "../componentes/chat-cabecalho";
 import { BarChart3, ChevronRight, MoreHorizontal } from "lucide-react";
 import ChatEscrita from "../componentes/chat-escrita";
 import ChatEstatistica from "../componentes/chat-estatistica";
+import { Mensagem } from "@/types/mensagem";
+
 
 
 export default function Conversa() {
     const [mostrarEstatisticas, setMostrarEstatisticas] = useState(false);
+    const [mensagens, setMensagens] = useState<Mensagem[]>([]);
+
+    function adicionarMensagem(texto: string) {
+        const novaMensagem: Mensagem = {
+            id: Date.now(),
+            nome: "Marina Costa",
+            texto: texto,
+            hora: new Date().toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit"
+            }),
+            lado: "esquerdo"
+        };
+
+        setMensagens((anterior) => [...anterior, novaMensagem]);
+    }
+
 
     return (
         <main className="flex h-[calc(100dvh-3.5rem)] min-w-0 flex-1 flex-row overflow-hidden bg-gray-50 text-gray-900 md:h-screen">
@@ -31,38 +50,17 @@ export default function Conversa() {
 
                 {/* Área de mensagens */}
                 <div className="flex-1 min-h-0 overflow-y-auto">
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
-                    <ChatBalao />
+                    {mensagens.map((mensagem) => (
+                    <ChatBalao
+                        key={mensagem.id}
+                        mensagem={mensagem}
+                    />
+                ))}
                 </div>
 
                 {/* Escrita */}
                 <div className="shrink-0">
-                    <ChatEscrita />
+                    <ChatEscrita onEnviarMensagem={adicionarMensagem} />
                 </div>
 
             </section>
