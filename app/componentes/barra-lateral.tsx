@@ -11,24 +11,12 @@ import {
   Plus,
   Search,
 } from "lucide-react";
+import Conversa from "../conversas/[id]/page";
+import { Mensagem } from "@/types/mensagem";
+import { conversasMock } from "../conversas/dados/conversas-mock";
 
 type Origem = "importada" | "digitada";
 
-interface Conversa {
-  id: string;
-  nome: string;
-  mensagem: string;
-  hora: string;
-  origem: Origem;
-}
-
-const CONVERSAS: Conversa[] = [
-  { id: "1", nome: "Marina Costa", mensagem: "Combinado! Me chama no outro app", hora: "10:42", origem: "importada" },
-  { id: "2", nome: "Rafael Almeida", mensagem: "Obrigada por compartilhar!", hora: "10:28", origem: "importada" },
-  { id: "3", nome: "Júlia Santos", mensagem: "Me avisa quando chegar?", hora: "09:56", origem: "digitada" },
-  { id: "4", nome: "Pedro Lima", mensagem: "Enviei as fotos por aqui.", hora: "Ontem", origem: "digitada" },
-  { id: "5", nome: "Beatriz Oliveira", mensagem: "Adorei a ideia. Vamos combinar!", hora: "Ontem", origem: "importada" },
-];
 
 const FILTROS = [
   { id: "todas", label: "Todas" },
@@ -39,8 +27,11 @@ const FILTROS = [
 type Filtro = "todas" | "importada" | "digitada";
 
 export default function BarraLateral() {
+  //Variáveis
   const [filtro, setFiltro] = useState<Filtro>("todas");
   const [busca, setBusca] = useState("");
+
+  //Filtros
   const pathname = usePathname();
   const idAtivo = pathname.split("/").pop();
   const emConversa = pathname.startsWith("/conversas/");
@@ -48,12 +39,23 @@ export default function BarraLateral() {
 
   const lista = useMemo(() => {
     const termo = busca.trim().toLowerCase();
-    return CONVERSAS.filter(
-      (c) =>
-        (filtro === "todas" || c.origem === filtro) &&
-        (!termo || c.nome.toLowerCase().includes(termo) || c.mensagem.toLowerCase().includes(termo)),
-    );
+
+    return conversasMock.filter((c) => {
+      const correspondeOrigem =
+        filtro === "todas" || c.origem === filtro;
+
+      const correspondeBusca =
+        !termo ||
+        c.participanteA.toLowerCase().includes(termo) ||
+        c.participanteB.toLowerCase().includes(termo) ||
+        c.mensagens.some((m) =>
+          m.texto.toLowerCase().includes(termo)
+        );
+
+      return correspondeOrigem && correspondeBusca;
+    });
   }, [filtro, busca]);
+
 
   return (
     <aside className="hidden min-h-screen w-[264px] shrink-0 flex-col border-r border-gray-200 bg-gray-100 px-3 py-4 md:flex">
@@ -79,7 +81,7 @@ export default function BarraLateral() {
         >
           <MessageSquare className="h-4 w-4" />
           <span className="flex-1">Conversas</span>
-          <span className="text-xs font-normal text-gray-500">{CONVERSAS.length}</span>
+          <span className="text-xs font-normal text-gray-500">{conversasMock.length}</span>
         </Link>
         <Link
           href="/analises"
@@ -144,7 +146,9 @@ export default function BarraLateral() {
         })}
       </div>
 
-      {/* Lista de conversas */}
+
+      {/* Arrumar em casa */}
+      {/* Lista de conversas */}  
       <ul className="-mx-1 flex-1 space-y-0.5 overflow-y-auto px-1">
         {lista.map((c) => {
           const on = c.id === idAtivo;
@@ -164,14 +168,14 @@ export default function BarraLateral() {
                     (on ? "bg-gray-900 text-white" : "bg-gray-200 text-gray-600")
                   }
                 >
-                  {iniciais(c.nome)}
+                  {iniciais(conversasMock[0].participanteA)}
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="flex items-baseline justify-between gap-2">
-                    <span className="truncate text-sm font-medium text-gray-900">{c.nome}</span>
-                    <span className="shrink-0 text-[11px] text-gray-400">{c.hora}</span>
+                    <span className="truncate text-sm font-medium text-gray-900">{conversasMock[0].participanteA}</span>
+                    <span className="shrink-0 text-[11px] text-gray-400">{conversasMock[0].mensagens[0].hora}</span>
                   </span>
-                  <span className="block truncate text-xs text-gray-500">{c.mensagem}</span>
+                  <span className="block truncate text-xs text-gray-500">{conversasMock[0].mensagens[0].texto}</span>
                 </span>
               </Link>
             </li>

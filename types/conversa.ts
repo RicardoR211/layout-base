@@ -5,5 +5,6 @@ export interface Conversa {
     participanteA: string;
     participanteB: string;
     falanteAtual: "A" | "B";
+    origem: "importada" | "digitada";
     mensagens: Mensagem[];
 }

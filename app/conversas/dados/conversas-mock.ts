@@ -6,6 +6,7 @@ export const conversasMock: Conversa[] = [
     participanteA: "Marina Costa",
     participanteB: "Clara",
     falanteAtual: "A",
+    origem: "importada",
     mensagens: [
       {
         id: 1,
@@ -44,4 +45,93 @@ export const conversasMock: Conversa[] = [
       },
     ],
   },
+  {
+    id: "2",
+    participanteA: "Rafael Almeida",
+    participanteB: "Lucas",
+    falanteAtual: "A",
+    origem: "digitada",
+    mensagens: [
+      {
+        id: 1,
+        nome: "Rafael Almeida",
+        texto: "Lucas, conseguiu finalizar aquele orçamento?",
+        hora: "09:15",
+        lado: "esquerdo",
+      },
+      {
+        id: 2,
+        nome: "Lucas",
+        texto: "Estou terminando os últimos detalhes.",
+        hora: "09:18",
+        lado: "direito",
+      },
+      {
+        id: 3,
+        nome: "Rafael Almeida",
+        texto: "Ótimo! Preciso apresentar para o cliente ainda hoje.",
+        hora: "09:20",
+        lado: "esquerdo",
+      },
+      {
+        id: 4,
+        nome: "Lucas",
+        texto: "Pode deixar, te envio antes do almoço.",
+        hora: "09:23",
+        lado: "direito",
+      },
+      {
+        id: 5,
+        nome: "Rafael Almeida",
+        texto: "Perfeito, obrigado!",
+        hora: "09:25",
+        lado: "esquerdo",
+      },
+    ],
+  },
+  {
+    id: "3",
+    participanteA: "Beatriz Oliveira",
+    participanteB: "Fernanda",
+    falanteAtual: "B",
+    origem: "importada",
+    mensagens: [
+      {
+        id: 1,
+        nome: "Fernanda",
+        texto: "Bia, você vai participar do evento no sábado?",
+        hora: "14:02",
+        lado: "direito",
+      },
+      {
+        id: 2,
+        nome: "Beatriz Oliveira",
+        texto: "Vou sim! Já confirmei minha inscrição.",
+        hora: "14:05",
+        lado: "esquerdo",
+      },
+      {
+        id: 3,
+        nome: "Fernanda",
+        texto: "Que bom! Estava pensando em irmos juntas.",
+        hora: "14:07",
+        lado: "direito",
+      },
+      {
+        id: 4,
+        nome: "Beatriz Oliveira",
+        texto: "Adorei a ideia. Podemos nos encontrar na entrada.",
+        hora: "14:10",
+        lado: "esquerdo",
+      },
+      {
+        id: 5,
+        nome: "Fernanda",
+        texto: "Fechado! Te mando mensagem quando estiver chegando.",
+        hora: "14:12",
+        lado: "direito",
+      },
+    ],
+  },
+
 ];
