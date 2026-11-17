@@ -21,7 +21,7 @@ export default function ChatBalao({ mensagem }: { mensagem: Mensagem }) {
     return(
         <div className={
             "min-w-0 max-w-[620px] px-2 py-5 " +
-            (mensagem.lado === "esquerdo" ? "mr-5" : "ml-5")
+            (mensagem.lado === "esquerdo" ? "mr-auto ml-2" : "ml-auto mr-2")
         }>
 
 
@@ -42,7 +42,7 @@ export default function ChatBalao({ mensagem }: { mensagem: Mensagem }) {
 
 
             {/*Balão da mensagem*/}
-            <div className="min-w-0 py-4">
+            <div className={"min-w-0 py-4 " + (mensagem.lado === "direito" ? "flex justify-end" : "")}>
                 <p className={"inline-block w-fit max-w-full break-words rounded-2xl border-[2px] border-gray-300 px-5 py-5 shadow-sm " + 
                     (mensagem.lado === "esquerdo" ? "bg-white" : "bg-gray-200")
                 }>

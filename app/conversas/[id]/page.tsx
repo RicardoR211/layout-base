@@ -1,32 +1,46 @@
 "use client";
 
 import { useState } from "react";
-import ChatBalao from "../componentes/balao";
-import ChatBalao1 from "../componentes/bala1o";
-import ChatCabecalho from "../componentes/chat-cabecalho";
-import { BarChart3, ChevronRight, MoreHorizontal } from "lucide-react";
-import ChatEstatistica from "../componentes/estatistica/chat-estatistica";
-import { Mensagem } from "@/types/mensagem";
-import ChatEscrita from "../componentes/chat-escrita";
 
+import ChatBalao from "../componentes/balao";
+import ChatCabecalho from "../componentes/chat-cabecalho";
+import ChatEscrita from "../componentes/chat-escrita";
+import ChatEstatistica from "../componentes/estatistica/chat-estatistica";
+
+import { BarChart3, ChevronRight, MoreHorizontal } from "lucide-react";
+import type { Conversa } from "@/types/conversa";
+import { Mensagem } from "@/types/mensagem";
+
+//Dados fixos
+import { conversasMock } from "../dados/conversas-mock";
 
 export default function Conversa() {
     const [mostrarEstatisticas, setMostrarEstatisticas] = useState(false);
-    const [mensagens, setMensagens] = useState<Mensagem[]>([]);
+    //Descomentar quando eu for usar os dados "reais"
+    //const [mensagens, setMensagens] = useState<Mensagem[]>([]);
+
+    const [conversa, setConversa] = useState<Conversa>(conversasMock[0]);
 
     function adicionarMensagem(texto: string) {
+        const falandoComoA = conversa.falanteAtual === "A";
+
         const novaMensagem: Mensagem = {
             id: Date.now(),
-            nome: "Marina Costa",
-            texto: texto,
+            nome: falandoComoA
+            ? conversa.participanteA
+            : conversa.participanteB,
+            texto,
             hora: new Date().toLocaleTimeString("pt-BR", {
-                hour: "2-digit",
-                minute: "2-digit"
+            hour: "2-digit",
+            minute: "2-digit",
             }),
-            lado: "esquerdo"
+            lado: falandoComoA ? "esquerdo" : "direito",
         };
 
-        setMensagens((anterior) => [...anterior, novaMensagem]);
+        setConversa((atual) => ({
+            ...atual,
+            mensagens: [...atual.mensagens, novaMensagem],
+        }));
     }
 
 
@@ -50,11 +64,8 @@ export default function Conversa() {
 
                 {/* Área de mensagens */}
                 <div className="flex-1 min-h-0 overflow-y-auto">
-                    {mensagens.map((mensagem) => (
-                    <ChatBalao
-                        key={mensagem.id}
-                        mensagem={mensagem}
-                    />
+                {conversa.mensagens.map((mensagem) => (
+                    <ChatBalao key={mensagem.id} mensagem={mensagem} />
                 ))}
                 </div>
 
