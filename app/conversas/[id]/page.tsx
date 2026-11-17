@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import ChatBalao from "../componentes/balao";
+import ChatBalao1 from "../componentes/bala1o";
 import ChatCabecalho from "../componentes/chat-cabecalho";
 import { BarChart3, ChevronRight, MoreHorizontal } from "lucide-react";
-import ChatEscrita from "../componentes/chat-escrita";
-import ChatEstatistica from "../componentes/chat-estatistica";
+import ChatEstatistica from "../componentes/estatistica/chat-estatistica";
 import { Mensagem } from "@/types/mensagem";
-
+import ChatEscrita from "../componentes/chat-escrita";
 
 
 export default function Conversa() {
