@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useParams } from "next/navigation";
 
 import ChatBalao from "../componentes/balao";
 import ChatCabecalho from "../componentes/chat-cabecalho";
@@ -18,8 +19,10 @@ export default function Conversa() {
     const [mostrarEstatisticas, setMostrarEstatisticas] = useState(false);
     //Descomentar quando eu for usar os dados "reais"
     //const [mensagens, setMensagens] = useState<Mensagem[]>([]);
+    const params = useParams();
+    const id = params.id as string;
 
-    const [conversa, setConversa] = useState<Conversa>(conversasMock[0]);
+    const [conversa, setConversa] = useState<Conversa>(conversasMock[id-1]);
 
     function adicionarMensagem(texto: string) {
         const falandoComoA = conversa.falanteAtual === "A";

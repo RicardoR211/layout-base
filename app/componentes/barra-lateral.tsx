@@ -152,6 +152,11 @@ export default function BarraLateral() {
       <ul className="-mx-1 flex-1 space-y-0.5 overflow-y-auto px-1">
         {lista.map((c) => {
           const on = c.id === idAtivo;
+
+          const ultimaMensagem = c.mensagens[c.mensagens.length - 1]
+
+
+
           return (
             <li key={c.id}>
               <Link
@@ -168,14 +173,14 @@ export default function BarraLateral() {
                     (on ? "bg-gray-900 text-white" : "bg-gray-200 text-gray-600")
                   }
                 >
-                  {iniciais(conversasMock[0].participanteA)}
+                  {iniciais(c.participanteA)}
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="flex items-baseline justify-between gap-2">
-                    <span className="truncate text-sm font-medium text-gray-900">{conversasMock[0].participanteA}</span>
-                    <span className="shrink-0 text-[11px] text-gray-400">{conversasMock[0].mensagens[0].hora}</span>
+                    <span className="truncate text-sm font-medium text-gray-900">{c.participanteA}</span>
+                    <span className="shrink-0 text-[11px] text-gray-400">{ultimaMensagem.hora}</span>
                   </span>
-                  <span className="block truncate text-xs text-gray-500">{conversasMock[0].mensagens[0].texto}</span>
+                  <span className="block truncate text-xs text-gray-500">{ultimaMensagem?.texto ?? "Nenhuma mensagem"}</span>
                 </span>
               </Link>
             </li>
