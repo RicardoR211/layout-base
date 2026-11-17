@@ -43,7 +43,9 @@ export default function Conversa() {
         }));
     }
 
-
+    var tam = conversa.mensagens.length;
+    console.log(conversa.mensagens[tam-1].nome)
+    console.log(conversa.mensagens[tam-1].texto);
     return (
         <main className="flex h-[calc(100dvh-3.5rem)] min-w-0 flex-1 flex-row overflow-hidden bg-gray-50 text-gray-900 md:h-screen">
 
