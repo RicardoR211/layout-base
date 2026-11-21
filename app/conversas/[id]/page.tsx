@@ -22,33 +22,53 @@ export default function Conversa() {
     const params = useParams();
     const id = params.id as string;
 
-    const [conversa, setConversa] = useState<Conversa>(conversasMock[id-1]);
+    const [conversas, setConversas] = useState<Conversa[]>(conversasMock);
+    const conversa = conversas.find((item) => item.id === id);
 
-    function adicionarMensagem(texto: string) {
-        const falandoComoA = conversa.falanteAtual === "A";
-
-        const novaMensagem: Mensagem = {
-            id: Date.now(),
-            nome: falandoComoA
-            ? conversa.participanteA
-            : conversa.participanteB,
-            texto,
-            hora: new Date().toLocaleTimeString("pt-BR", {
-            hour: "2-digit",
-            minute: "2-digit",
-            }),
-            lado: falandoComoA ? "esquerdo" : "direito",
-        };
-
-        setConversa((atual) => ({
-            ...atual,
-            mensagens: [...atual.mensagens, novaMensagem],
-        }));
+    if(!conversa) {
+        return <main>Conversa não encontrada.</main>;
     }
 
-    var tam = conversa.mensagens.length;
-    console.log(conversa.mensagens[tam-1].nome)
-    console.log(conversa.mensagens[tam-1].texto);
+    const conversaAtual = conversa;
+
+    function adicionarMensagem(texto: string) {
+        const falandoComoA = conversaAtual.falanteAtual === "A";
+
+        const novaMensagem: Mensagem = {
+        id: Date.now(),
+        nome: falandoComoA
+            ? conversaAtual.participanteA
+            : conversaAtual.participanteB,
+        texto,
+        hora: new Date().toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit",
+        }),
+        lado: falandoComoA ? "esquerdo" : "direito",
+        };
+
+        setConversas((atuais) =>
+            atuais.map((item) =>
+                item.id === id
+                ? {
+                    ...item,
+                    mensagens: [...item.mensagens, novaMensagem],
+                    }
+                : item
+            )
+        );
+    }
+
+    function selecionarFalante(falante: "A" | "B") {
+        setConversas((atuais) =>
+            atuais.map((item) =>
+            item.id === id
+                ? { ...item, falanteAtual: falante }
+                : item
+            )
+        );
+    }   
+
     return (
         <main className="flex h-[calc(100dvh-3.5rem)] min-w-0 flex-1 flex-row overflow-hidden bg-gray-50 text-gray-900 md:h-screen">
 
@@ -64,19 +84,27 @@ export default function Conversa() {
 
                 {/* Cabeçalho */}
                 <div className="shrink-0">
-                    <ChatCabecalho onOpenStatistics={() => setMostrarEstatisticas(true)}/>
+                    <ChatCabecalho  nome={conversaAtual.participanteA}
+                                    origem={conversaAtual.origem}
+                                    totalMensagens={conversaAtual.mensagens.length}
+                                    onOpenStatistics={() => setMostrarEstatisticas(true)}
+                    />
                 </div>
 
                 {/* Área de mensagens */}
                 <div className="flex-1 min-h-0 overflow-y-auto">
-                {conversa.mensagens.map((mensagem) => (
+                {conversaAtual.mensagens.map((mensagem) => (
                     <ChatBalao key={mensagem.id} mensagem={mensagem} />
                 ))}
                 </div>
 
                 {/* Escrita */}
                 <div className="shrink-0">
-                    <ChatEscrita onEnviarMensagem={adicionarMensagem} />
+                    <ChatEscrita participanteA={conversaAtual.participanteA}
+                                participanteB={conversaAtual.participanteB}
+                                falanteAtual={conversaAtual.falanteAtual}
+                                onSelecionarFalante={selecionarFalante}
+                                onEnviarMensagem={adicionarMensagem} />
                 </div>
 
             </section>

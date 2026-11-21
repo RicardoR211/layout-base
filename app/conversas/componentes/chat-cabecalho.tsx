@@ -13,12 +13,14 @@ const C = {id: "1",
     lado: "esquerdo"
 };
 
- 
 interface ChatCabecalhoProps {
-    onOpenStatistics: () => void;
+  nome: string;
+  origem: "importada" | "digitada";
+  totalMensagens: number;
+  onOpenStatistics: () => void;
 }
 
-export default function ChatCabecalho({ onOpenStatistics }: ChatCabecalhoProps) {
+export default function ChatCabecalho({ nome, origem, totalMensagens, onOpenStatistics }: ChatCabecalhoProps) {
     const [mostrarAcoes, setMostrarAcoes] = useState(false);
 
     return (
@@ -27,15 +29,15 @@ export default function ChatCabecalho({ onOpenStatistics }: ChatCabecalhoProps) 
             {/* Identificação da conversa */}
             <div className="flex min-w-0 items-center gap-4">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-900 text-[16px] font-semibold text-white">
-                    {iniciais(C.nome)}
+                    {iniciais(nome)}
                 </span>
  
                 <div className="min-w-0">
                     <p className="truncate text-[18px] font-[600] leading-tight text-gray-900">
-                        {C.nome}
+                        {nome}
                     </p>
                     <p className="truncate text-[14px] text-gray-500">
-                        Conversa digitada · 5 mensagens · 2 participantes
+                        {origem === "digitada" ? "Conversa digitada" : "Conversa importada"} · {totalMensagens} mensagens · 2 participantes
                     </p>
                 </div>
             </div>

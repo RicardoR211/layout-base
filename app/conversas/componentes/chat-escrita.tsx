@@ -1,6 +1,7 @@
 "use client";
 
 import { iniciais } from "@/lib/iniciais";
+import { nomeInicial } from "@/lib/nomeInicial";
 import { useState } from "react";
 import { ArrowLeftRight, Paperclip, ArrowUp } from "lucide-react";
 
@@ -17,11 +18,25 @@ const C = {id: "1",
 
 interface ChatEscritaProps {
     onEnviarMensagem: (texto : string) => void;
+    participanteA: string;
+    participanteB: string;
+    falanteAtual: "A" | "B";
+    onSelecionarFalante: (falante: "A" | "B") => void;
 }
 
 
-export default function ChatEscrita( {onEnviarMensagem } : ChatEscritaProps ) {
+export default function ChatEscrita({
+  onEnviarMensagem,
+  participanteA,
+  participanteB,
+  falanteAtual,
+  onSelecionarFalante,
+}: ChatEscritaProps) {
+
     const [mensagem, setMensagem] = useState("");
+    const primeiroNomeA = nomeInicial(participanteA);
+    const primeiroNomeB = nomeInicial(participanteB);
+
 
     const ajustarAltura = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         e.target.style.height = "auto";
@@ -29,7 +44,8 @@ export default function ChatEscrita( {onEnviarMensagem } : ChatEscritaProps ) {
     };
     
     return (
-        <div className="w-full border border-gray-200 rounded-t-xl bg-white">
+        /* Botar como white aqui pelo amor de Deus */
+        <div className="w-full border border-gray-200 rounded-t-xl bg-black">
 
             {/*  Cima */ }
             <div className="flex items-center justify-between px-5 py-3">
@@ -42,36 +58,46 @@ export default function ChatEscrita( {onEnviarMensagem } : ChatEscritaProps ) {
                     </p>
 
                     {/* Seleção de pessoa */}
-                    <div className="flex items-center gap-1 rounded-xl bg-gray-100 p-1">
+                    <div className="flex items-center gap-5 rounded-xl bg-gray-100 p-1">
 
                         {/* Primeira Pessoa */}
                         <button
-                            aria-pressed="true"
-                            className="flex items-center gap-2 rounded-lg border border-gray-700 bg-gray-900 px-2.5 py-1.5 text-white shadow-md ring-1 ring-gray-300 transition-all hover:bg-gray-800"
-                        >
+                            aria-pressed={falanteAtual === "A"}
+                            onClick={() => onSelecionarFalante("A")}
+                            className={"flex items-center gap-2 rounded-lg px-2.5 py-1.5 transition-all " +
+                                        (falanteAtual === "A"
+                                            ? "bg-gray-900 text-white shadow-md"
+                                            : "bg-transparent text-gray-600 hover:bg-white")
+                                        }
+                            >
 
-                            <span className="flex h-5 w-5 items-center justify-center rounded-md bg-white text-[11px] font-semibold text-gray-900">
-                                {iniciais(C.nome)}
+                            <span className="flex h-8 w-12 items-center justify-center rounded-md bg-white text-[11px] font-semibold text-gray-900">
+                                {iniciais(participanteA)}
                             </span>
 
                             <span className="text-[14px] font-medium">
-                                Marina
+                                {primeiroNomeA}
                             </span>
 
                         </button>
 
                         {/* Segunda Pessoa */}
                         <button
-                            aria-pressed="false"
-                            className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-gray-500 transition-all hover:bg-gray-200 hover:text-gray-900"
+                            aria-pressed={falanteAtual === "B"}
+                            onClick={() => onSelecionarFalante("B")}
+                            className={"flex items-center gap-2 rounded-lg px-2.5 py-1.5 transition-all " +
+                                        (falanteAtual === "B"
+                                            ? "bg-gray-900 text-white shadow-md"
+                                            : "bg-transparent text-gray-600 hover:bg-white")
+                                        }
                         >
 
-                            <span className="flex h-5 w-5 items-center justify-center rounded-md bg-gray-200 text-[11px] font-semibold text-gray-700">
-                                {iniciais("Clara")}
+                            <span className="flex h-8 w-12 items-center justify-center rounded-md bg-gray-200 text-[11px] font-semibold text-gray-700">
+                                {iniciais(participanteB)}
                             </span>
 
                             <span className="text-[14px] font-medium">
-                                Clara
+                                {primeiroNomeB}
                             </span>
 
                         </button>
