@@ -1,9 +1,16 @@
 import { X } from "lucide-react";
 
+import type { ResultadoAnalise } from "@/types/analise";
+import type { Mensagem } from "@/types/mensagem";
+
 import RiscoGeral from "./risco-geral";
 
 interface ChatEstatisticaProps {
     onClose: () => void;
+    resultado: ResultadoAnalise;
+    participanteA: string;
+    participanteB: string;
+    mensagens: Mensagem[];
 }
 
 const analise = {
@@ -20,7 +27,7 @@ const analise = {
 };
 
 
-export default function ChatEstatistica({ onClose }: ChatEstatisticaProps) {
+export default function ChatEstatistica({ onClose, resultado, participanteA, participanteB, mensagens }: ChatEstatisticaProps) {
 
     return (
         <aside className="
@@ -72,25 +79,32 @@ export default function ChatEstatistica({ onClose }: ChatEstatisticaProps) {
                 /> */}
 
                 {/* bloco com ...*/}
-                <div>
+               <div className="grid grid-cols-2 gap-3 max-w-sm mt-3">
                     {/* mensagem */}
-                    <div>
-
+                    <div className="rounded-xl border border-gray-200 bg-white p-4">
+                        <p className="text-sm text-gray-500">Mensagens</p>
+                        <p className="text-3xl font-semibold text-gray-900">5</p>
                     </div>
 
                     {/* sinalizadas */}
-                    <div>
-                        
+                    <div className="rounded-xl border border-gray-200 bg-white p-4">
+                        <p className="text-sm text-gray-500">Sinalizadas</p>
+                        <p className="text-3xl font-semibold text-gray-900">2</p>
+                        <p className="text-sm text-gray-400">40%</p>
                     </div>
 
-                    {/* Falante A  */}
-                    <div>
-                        
+                    {/* Falante A */}
+                    <div className="rounded-xl border border-gray-200 bg-white p-4">
+                        <p className="text-sm text-gray-500">Falante A · Marina</p>
+                        <p className="text-3xl font-semibold text-gray-900">3</p>
+                        <p className="text-sm text-gray-400">2 sinalizadas</p>
                     </div>
 
                     {/* Falante B */}
-                    <div>
-                        
+                    <div className="rounded-xl border border-gray-200 bg-white p-4">
+                        <p className="text-sm text-gray-500">Falante B · Clara</p>
+                        <p className="text-3xl font-semibold text-gray-900">2</p>
+                        <p className="text-sm text-gray-400">0 sinalizadas</p>
                     </div>
                 </div>
 

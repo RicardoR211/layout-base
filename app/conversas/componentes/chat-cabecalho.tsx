@@ -14,13 +14,15 @@ const C = {id: "1",
 };
 
 interface ChatCabecalhoProps {
-  nome: string;
-  origem: "importada" | "digitada";
-  totalMensagens: number;
-  onOpenStatistics: () => void;
+    nome: string;
+    origem: "importada" | "digitada";
+    totalMensagens: number;
+    onOpenStatistics: () => void;
+    onAnalyze: () => void;
+    analisando: boolean;
 }
 
-export default function ChatCabecalho({ nome, origem, totalMensagens, onOpenStatistics }: ChatCabecalhoProps) {
+export default function ChatCabecalho({ nome, origem, totalMensagens, onOpenStatistics, onAnalyze, analisando}: ChatCabecalhoProps) {
     const [mostrarAcoes, setMostrarAcoes] = useState(false);
 
     return (
@@ -60,11 +62,12 @@ export default function ChatCabecalho({ nome, origem, totalMensagens, onOpenStat
 
                     <button
                         type="button"
-                        onClick={() => console.log("Clicou em Analisar conversa")}
+                        onClick={onAnalyze}
+                        disabled={analisando}
                         className="rounded-lg bg-gray-900 px-4 py-2 text-[14px] font-[500] text-white transition hover:bg-gray-800"
                     >
-                        <span className="@md:hidden">Analisar</span>
-                        <span className="hidden @md:inline">Analisar Conversa</span>
+                        <span className="@md:hidden"> {analisando ? "Analisando..." : "Analisar"} </span>
+                        <span className="hidden @md:inline"> {analisando ? "Analisando..." : "Analisar Conversa"} </span>
                     </button>
                 </div>
 

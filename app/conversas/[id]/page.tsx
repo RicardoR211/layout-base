@@ -2,21 +2,26 @@
 
 import { useState } from "react";
 import { useParams } from "next/navigation";
+import { BarChart3, ChevronRight, MoreHorizontal } from "lucide-react";
 
 import ChatBalao from "../componentes/balao";
 import ChatCabecalho from "../componentes/chat-cabecalho";
 import ChatEscrita from "../componentes/chat-escrita";
 import ChatEstatistica from "../componentes/estatistica/chat-estatistica";
 
-import { BarChart3, ChevronRight, MoreHorizontal } from "lucide-react";
+//Tipos de dados
 import type { Conversa } from "@/types/conversa";
 import { Mensagem } from "@/types/mensagem";
+import type { ResultadoAnalise } from "@/types/analise";
 
 //Dados fixos
 import { conversasMock } from "../dados/conversas-mock";
 
 export default function Conversa() {
     const [mostrarEstatisticas, setMostrarEstatisticas] = useState(false);
+    const [analisando, setAnalisando] = useState(false);
+    const [resultadoAnalise, setResultadoAnalise] = useState<ResultadoAnalise | null>(null);
+    
     //Descomentar quando eu for usar os dados "reais"
     //const [mensagens, setMensagens] = useState<Mensagem[]>([]);
     const params = useParams();
@@ -69,18 +74,52 @@ export default function Conversa() {
         );
     }   
 
+    async function analisarConversa() {
+        setAnalisando(true) 
+
+        try {
+            const resposta = await fetch("/api/analisar-conversa", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    mensagens: conversaAtual.mensagens.map(({ id, texto }) => ({
+                        id,
+                        texto,
+                    })),
+                }),
+            });
+
+            if (!resposta.ok) {
+                throw new Error("Não foi possível analisar a conversa.");
+            }
+
+            console.log("Resultado da análise:", resultadoAnalise);
+
+            const dados = (await resposta.json()) as ResultadoAnalise;
+            setResultadoAnalise(dados);
+            setMostrarEstatisticas(true);
+        } catch (erro) {
+            console.error("Erro ao analisar a conversa:", erro);
+        } finally {
+            setAnalisando(false);
+        }
+    }
+
     return (
         <main className="flex h-[calc(100dvh-3.5rem)] min-w-0 flex-1 flex-row overflow-hidden bg-gray-50 text-gray-900 md:h-screen">
 
             <section className="@container flex min-w-0 flex-1 flex-col overflow-hidden">
                 {/* Breadcrumb */}
-                <nav className="hidden flex shrink-0 items-center gap-3 border-b border-gray-300 px-8 py-5 text-[14px] text-gray-500 display-block md:flex">
+                {/* Descontinuado por enquanto */}
+                {/* <nav className="hidden flex shrink-0 items-center gap-3 border-b border-gray-300 px-8 py-5 text-[14px] text-gray-500 display-block md:flex">
                     <span>Início</span>
                     <ChevronRight className="h-3.5 w-3.5" />
                     <span>Conversas</span>
                     <ChevronRight className="h-3.5 w-3.5" />
                     <span className="font-[600] text-gray-900">Marina Costa</span>
-                </nav>
+                </nav> */}
 
                 {/* Cabeçalho */}
                 <div className="shrink-0">
@@ -88,6 +127,8 @@ export default function Conversa() {
                                     origem={conversaAtual.origem}
                                     totalMensagens={conversaAtual.mensagens.length}
                                     onOpenStatistics={() => setMostrarEstatisticas(true)}
+                                    onAnalyze={analisarConversa}
+                                    analisando={analisando}
                     />
                 </div>
 
@@ -111,9 +152,14 @@ export default function Conversa() {
 
 
             {/* Painel lateral */}
-            {mostrarEstatisticas && (
+            {/* Se não tiver resultado a aba não abre. */}
+            {mostrarEstatisticas && resultadoAnalise && (
                 <ChatEstatistica
                     onClose={() => setMostrarEstatisticas(false)}
+                    resultado={resultadoAnalise}
+                    participanteA={conversaAtual.participanteA}
+                    participanteB={conversaAtual.participanteB}
+                    mensagens={conversaAtual.mensagens}
                 />
             )}
 
