@@ -3,6 +3,8 @@ import { X } from "lucide-react";
 import type { ResultadoAnalise } from "@/types/analise";
 import type { Mensagem } from "@/types/mensagem";
 
+import { nomeInicial } from "@/lib/nomeInicial";
+
 import RiscoGeral from "./risco-geral";
 
 interface ChatEstatisticaProps {
@@ -11,6 +13,7 @@ interface ChatEstatisticaProps {
     participanteA: string;
     participanteB: string;
     mensagens: Mensagem[];
+    analisadaEm: string;
 }
 
 const analise = {
@@ -27,7 +30,44 @@ const analise = {
 };
 
 
-export default function ChatEstatistica({ onClose, resultado, participanteA, participanteB, mensagens }: ChatEstatisticaProps) {
+export default function ChatEstatistica({ onClose, resultado, 
+    participanteA, participanteB, 
+    mensagens, analisadaEm }: ChatEstatisticaProps) {
+    
+    const mensagemPorId = new Map(
+        mensagens.map((mensagem) => [mensagem.id, mensagem])
+    );
+
+
+    //Quantia de cada
+    const mensagensA = resultado.porMensagem.filter(
+        (analise) => mensagemPorId.get(analise.id)?.nome === participanteA
+    );
+
+    const mensagensB = resultado.porMensagem.filter(
+        (analise) => mensagemPorId.get(analise.id)?.nome === participanteB
+    );
+
+    //Quantia de cada q foi sinalizada
+    const sinalizadasA = mensagensA.filter((mensagem) => mensagem.sinalizada).length;
+    const sinalizadasB = mensagensB.filter((mensagem) => mensagem.sinalizada).length;
+
+    //Porcentagem
+    const percentualSinalizadas =
+        resultado.total > 0
+            ? Math.round((resultado.sinalizadas / resultado.total) * 100)
+            : 0;
+
+
+    //Calculo de qual nível ele ira pegar
+    const pontuacao = resultado.pontuacaoMedia;
+
+    const nivelRisco =
+        pontuacao < 35
+            ? "Baixo"
+            : pontuacao < 60
+            ? "Moderado"
+            : "Alto";
 
     return (
         <aside className="
@@ -52,16 +92,16 @@ export default function ChatEstatistica({ onClose, resultado, participanteA, par
             {/* Conteúdo */}
             <div className="min-h-0 flex-1 overflow-y-auto p-5">
                 <p className="text-sm text-gray-500 mb-3">
-                    Conversa com $nome · analisada às xx:xx
+                    Conversa com {participanteA} · analisada às {analisadaEm}
                 </p>
 
 
                 {/* bloco nivel de risco */}
-                <RiscoGeral 
-                    nivel="Baixo" 
-                    pontuacao={15} 
-                    sinalizadas={2} 
-                    total={150} 
+                <RiscoGeral
+                    nivel={nivelRisco}
+                    pontuacao={pontuacao}
+                    sinalizadas={resultado.sinalizadas}
+                    total={resultado.total}
                 />
 
                 {/* <RiscoGeral 
@@ -83,28 +123,30 @@ export default function ChatEstatistica({ onClose, resultado, participanteA, par
                     {/* mensagem */}
                     <div className="rounded-xl border border-gray-200 bg-white p-4">
                         <p className="text-sm text-gray-500">Mensagens</p>
-                        <p className="text-3xl font-semibold text-gray-900">5</p>
+                        <p className="text-3xl font-semibold text-gray-900">{resultado.total}</p>
                     </div>
 
                     {/* sinalizadas */}
                     <div className="rounded-xl border border-gray-200 bg-white p-4">
                         <p className="text-sm text-gray-500">Sinalizadas</p>
-                        <p className="text-3xl font-semibold text-gray-900">2</p>
-                        <p className="text-sm text-gray-400">40%</p>
+                        <p className="text-3xl font-semibold text-gray-900">
+                            {resultado.sinalizadas}
+                        </p>
+                        <p className="text-sm text-gray-400">{percentualSinalizadas}%</p>
                     </div>
 
                     {/* Falante A */}
                     <div className="rounded-xl border border-gray-200 bg-white p-4">
-                        <p className="text-sm text-gray-500">Falante A · Marina</p>
-                        <p className="text-3xl font-semibold text-gray-900">3</p>
-                        <p className="text-sm text-gray-400">2 sinalizadas</p>
+                        <p className="text-sm text-gray-500">Falante A · {nomeInicial(participanteA)}</p>
+                        <p className="text-3xl font-semibold text-gray-900">{mensagensA.length}</p>
+                        <p className="text-sm text-gray-400">{sinalizadasA} sinalizadas</p>
                     </div>
 
                     {/* Falante B */}
                     <div className="rounded-xl border border-gray-200 bg-white p-4">
-                        <p className="text-sm text-gray-500">Falante B · Clara</p>
-                        <p className="text-3xl font-semibold text-gray-900">2</p>
-                        <p className="text-sm text-gray-400">0 sinalizadas</p>
+                        <p className="text-sm text-gray-500">Falante B · {nomeInicial(participanteB)}</p>
+                        <p className="text-3xl font-semibold text-gray-900">{mensagensB.length}</p>
+                        <p className="text-sm text-gray-400">{sinalizadasB} sinalizadas</p>
                     </div>
                 </div>
 

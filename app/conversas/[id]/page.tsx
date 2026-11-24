@@ -21,7 +21,8 @@ export default function Conversa() {
     const [mostrarEstatisticas, setMostrarEstatisticas] = useState(false);
     const [analisando, setAnalisando] = useState(false);
     const [resultadoAnalise, setResultadoAnalise] = useState<ResultadoAnalise | null>(null);
-    
+    const [analisadaEm, setAnalisadaEm] = useState<string | null>(null);
+
     //Descomentar quando eu for usar os dados "reais"
     //const [mensagens, setMensagens] = useState<Mensagem[]>([]);
     const params = useParams();
@@ -99,6 +100,14 @@ export default function Conversa() {
 
             const dados = (await resposta.json()) as ResultadoAnalise;
             setResultadoAnalise(dados);
+            //Preciso desse horário para avisar a pessoa a ultima vez
+            //que a conversa foi analisada.
+            setAnalisadaEm(
+                    new Date().toLocaleTimeString("pt-BR", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                })
+            );
             setMostrarEstatisticas(true);
         } catch (erro) {
             console.error("Erro ao analisar a conversa:", erro);
@@ -153,13 +162,14 @@ export default function Conversa() {
 
             {/* Painel lateral */}
             {/* Se não tiver resultado a aba não abre. */}
-            {mostrarEstatisticas && resultadoAnalise && (
+            {mostrarEstatisticas && resultadoAnalise && analisadaEm &&(
                 <ChatEstatistica
                     onClose={() => setMostrarEstatisticas(false)}
                     resultado={resultadoAnalise}
                     participanteA={conversaAtual.participanteA}
                     participanteB={conversaAtual.participanteB}
                     mensagens={conversaAtual.mensagens}
+                    analisadaEm={analisadaEm}
                 />
             )}
 
