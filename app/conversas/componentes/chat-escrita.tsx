@@ -6,15 +6,6 @@ import { useState } from "react";
 import { ArrowLeftRight, Paperclip, ArrowUp } from "lucide-react";
 
 
-const C = {id: "1", 
-    nome: "Marina Costa", 
-    mensagem: "Combinado! Me chama no outro app",
-    lorem: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pellentesque risus eget felis tincidunt pulvinar. Proin nisl nisl, pretium id gravida id, porta eget quam. Proin mollis lectus a dolor luctus ullamcorper. Integer sed dui ultricies, pulvinar enim a, hendrerit sapien. Integer fringilla ipsum purus, id suscipit metus fermentum et. Sed tincidunt ligula sed tellus sagittis, id molestie ipsum vehicula. Ut metus sem, fermentum eu rhoncus vel, congue quis quam. Mauris lacinia porta nunc, " ,
-    hora: "10:42", 
-    origem: "importada",
-    lado: "esquerdo"
-};
-
 
 interface ChatEscritaProps {
     onEnviarMensagem: (texto : string) => void;
@@ -44,8 +35,7 @@ export default function ChatEscrita({
     };
     
     return (
-        /* Botar como white aqui pelo amor de Deus */
-        <div className="w-full border border-gray-200 rounded-t-xl bg-black">
+        <div className="w-full border border-gray-200 rounded-t-xl bg-white">
 
             {/*  Cima */ }
             <div className="flex items-center justify-between px-5 py-3">

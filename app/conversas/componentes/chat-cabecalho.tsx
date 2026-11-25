@@ -18,11 +18,11 @@ interface ChatCabecalhoProps {
     origem: "importada" | "digitada";
     totalMensagens: number;
     onOpenStatistics: () => void;
-    onAnalyze: () => void;
+    onAnalizar: () => void;
     analisando: boolean;
 }
 
-export default function ChatCabecalho({ nome, origem, totalMensagens, onOpenStatistics, onAnalyze, analisando}: ChatCabecalhoProps) {
+export default function ChatCabecalho({ nome, origem, totalMensagens, onOpenStatistics, onAnalizar, analisando}: ChatCabecalhoProps) {
     const [mostrarAcoes, setMostrarAcoes] = useState(false);
 
     return (
@@ -62,7 +62,7 @@ export default function ChatCabecalho({ nome, origem, totalMensagens, onOpenStat
 
                     <button
                         type="button"
-                        onClick={onAnalyze}
+                        onClick={onAnalizar}
                         disabled={analisando}
                         className="rounded-lg bg-gray-900 px-4 py-2 text-[14px] font-[500] text-white transition hover:bg-gray-800"
                     >

@@ -23,8 +23,6 @@ export default function Conversa() {
     const [resultadoAnalise, setResultadoAnalise] = useState<ResultadoAnalise | null>(null);
     const [analisadaEm, setAnalisadaEm] = useState<string | null>(null);
 
-    //Descomentar quando eu for usar os dados "reais"
-    //const [mensagens, setMensagens] = useState<Mensagem[]>([]);
     const params = useParams();
     const id = params.id as string;
 
@@ -136,7 +134,7 @@ export default function Conversa() {
                                     origem={conversaAtual.origem}
                                     totalMensagens={conversaAtual.mensagens.length}
                                     onOpenStatistics={() => setMostrarEstatisticas(true)}
-                                    onAnalyze={analisarConversa}
+                                    onAnalizar={analisarConversa}
                                     analisando={analisando}
                     />
                 </div>
@@ -162,9 +160,10 @@ export default function Conversa() {
 
             {/* Painel lateral */}
             {/* Se não tiver resultado a aba não abre. */}
-            {mostrarEstatisticas && resultadoAnalise && analisadaEm &&(
+            {mostrarEstatisticas && (
                 <ChatEstatistica
                     onClose={() => setMostrarEstatisticas(false)}
+                    onAnalisar={analisarConversa}
                     resultado={resultadoAnalise}
                     participanteA={conversaAtual.participanteA}
                     participanteB={conversaAtual.participanteB}

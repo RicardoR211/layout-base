@@ -6,14 +6,16 @@ import type { Mensagem } from "@/types/mensagem";
 import { nomeInicial } from "@/lib/nomeInicial";
 
 import RiscoGeral from "./risco-geral";
+import EstatisticaNaoAnalisada from "./estatistica-nao-analisada";
 
 interface ChatEstatisticaProps {
     onClose: () => void;
-    resultado: ResultadoAnalise;
+    onAnalisar: () => void;
+    resultado: ResultadoAnalise | null;
     participanteA: string;
     participanteB: string;
     mensagens: Mensagem[];
-    analisadaEm: string;
+    analisadaEm: string | null;
 }
 
 const analise = {
@@ -30,9 +32,33 @@ const analise = {
 };
 
 
-export default function ChatEstatistica({ onClose, resultado, 
+export default function ChatEstatistica({ onClose, onAnalisar, resultado, 
     participanteA, participanteB, 
     mensagens, analisadaEm }: ChatEstatisticaProps) {
+
+    //Caso não tenha sido analisada
+    if (!resultado || !analisadaEm) {
+        return (
+            <aside className="flex w-full shrink-0 flex-col bg-white lg:w-[420px] lg:border-l lg:border-gray-200">
+                <header className="flex shrink-0 items-center justify-between border-b border-gray-300 px-5 py-3">
+                    <h2 className="text-lg font-semibold">Estatísticas da análise</h2>
+                    <button
+                        onClick={onClose}
+                        className="rounded-lg p-2 text-gray-500 hover:bg-gray-100"
+                    >
+                        <X className="h-5 w-5" />
+                    </button>
+                </header>
+
+                <div className="min-h-0 flex-1 overflow-y-auto p-5">
+                    <EstatisticaNaoAnalisada
+                        participanteA={participanteA}
+                        onAnalisar={onAnalisar}
+                    />
+                </div>
+            </aside>
+        );
+    }
     
     const mensagemPorId = new Map(
         mensagens.map((mensagem) => [mensagem.id, mensagem])
