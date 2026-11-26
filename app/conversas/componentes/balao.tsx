@@ -55,7 +55,7 @@ export default function ChatBalao({ mensagem, sinalizada }:  ChatBalaoProps) {
                 {sinalizada && (
                     <div className="mt-1 flex items-center gap-1 text-sm text-red-600">
                         <Flag size={15} />
-                        <span>Sinalizada · Mudança de canal</span>
+                        {/* FUturamente aqui ira escrever o tipo que foi encontrado */}
                     </div>
                 )}
 
