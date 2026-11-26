@@ -94,9 +94,11 @@ export default function Conversa() {
                 throw new Error("Não foi possível analisar a conversa.");
             }
 
+            
+            const dados = (await resposta.json()) as ResultadoAnalise;
+            
             console.log("Resultado da análise:", resultadoAnalise);
 
-            const dados = (await resposta.json()) as ResultadoAnalise;
             setResultadoAnalise(dados);
             //Preciso desse horário para avisar a pessoa a ultima vez
             //que a conversa foi analisada.
@@ -142,7 +144,12 @@ export default function Conversa() {
                 {/* Área de mensagens */}
                 <div className="flex-1 min-h-0 overflow-y-auto">
                 {conversaAtual.mensagens.map((mensagem) => (
-                    <ChatBalao key={mensagem.id} mensagem={mensagem} />
+                    <ChatBalao key={mensagem.id} mensagem={mensagem} sinalizada={
+                        resultadoAnalise?.porMensagem.some(
+                            (resultado) =>
+                                resultado.id === mensagem.id && resultado.sinalizada
+                        ) ?? false
+                    } />
                 ))}
                 </div>
 

@@ -1,5 +1,6 @@
 import { iniciais } from "@/lib/iniciais";
 import { Mensagem } from "@/types/mensagem";
+import { Flag } from "lucide-react";
 
 const C = {id: "1", 
     nome: "Marina Costa", 
@@ -14,10 +15,11 @@ const C = {id: "1",
 
 interface ChatBalaoProps {
     mensagem: Mensagem;
+    sinalizada: boolean;
 }
 
 
-export default function ChatBalao({ mensagem }: { mensagem: Mensagem }) {
+export default function ChatBalao({ mensagem, sinalizada }:  ChatBalaoProps) {
     return(
         <div className={
             "min-w-0 max-w-[620px] px-2 py-5 " +
@@ -48,6 +50,15 @@ export default function ChatBalao({ mensagem }: { mensagem: Mensagem }) {
                 }>
                     {mensagem.texto}
                 </p>
+
+                {/* Identificação da mensagem sinalizada */}
+                {sinalizada && (
+                    <div className="mt-1 flex items-center gap-1 text-sm text-red-600">
+                        <Flag size={15} />
+                        <span>Sinalizada · Mudança de canal</span>
+                    </div>
+                )}
+
             </div>
 
         </div>
